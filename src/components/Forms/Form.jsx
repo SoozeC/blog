@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Input from "./Input";
 
 // fields: an array of objects with name and field properties and outputs an Input for each
@@ -12,6 +11,7 @@ class Form extends Component {
         this.state = {
             fields: props.fields.slice(),
         }
+    this.edit = this.edit.bind(this);
     }
 
     handleChange(e, i) {
@@ -24,11 +24,22 @@ class Form extends Component {
         return !this.state.fields.every(({ value }) => value);
     }
 
+    edit(e){
+        e.preventDefault();
+
+        let data = this.state.fields.reduce((data, field) => { 
+            data[field.name] = field.value;
+            return data;}, {} 
+        );
+
+        this.props.onSubmit(data);
+    }
+
     render() {
         const { className, button } = this.props;
 
         return (
-            <form className={ "form" + (className ? " " + className : "") } >
+            <form onSubmit={ this.edit } className={ "form" + (className ? " " + className : "") } >
                 { this.state.fields.map(({ name, label, value }, i) => (
                     <Input
                         key={ i }

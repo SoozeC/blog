@@ -4,8 +4,21 @@ export const removeArticle = (article) => ({
 
 });
 
-export const editArticle = (article) => ({ 
-	type: "editArticle",
-	id: article.id,
+export const editArticle = ({ title, article, tags }, id) => { 
+	return {
+		type: "editArticle",
+		id: id,
+		title: title,
+		article: article,
+		tags: tags.split(" "),
+	}
+};
 
-});
+export const addComments = (id, { email, comment }) => {
+	return {
+		type: "addComments",
+		id: id,
+		email: email,
+		comment: comment,
+	}
+};

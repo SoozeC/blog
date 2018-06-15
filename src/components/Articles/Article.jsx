@@ -4,7 +4,7 @@ import FourOhFour from "../FourOhFour";
 
 import Actions from "../../containers/Articles/Delete";
 import Tags from "./Tags";
-import Comments from "./Comments";
+import Comments from "../../containers/Articles/Comments";
 
 // if article isn't passed in, that means it's an invalid id, so show FourOhFour
 const Article = ({ article }) => !article ? <FourOhFour /> : (
@@ -18,12 +18,12 @@ const Article = ({ article }) => !article ? <FourOhFour /> : (
         <article dangerouslySetInnerHTML={{ __html: article.article }} />
 
         { /* use the Tags component to show the tags */ }
-        <Tags tags={ article.tags } />
-
+        {/*<Tags tags={ article.tags } />*/}
+        {console.log(article.tags)}
         <hr />
 
         { /* use the comments component */ }
-        <Comments comments={ article.comments } />
+        <Comments comments={ article.comments } id={ article.id } />
     </React.Fragment>
 );
 

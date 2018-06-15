@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Edit from "../../components/Articles/Edit";
+import { editArticle } from "../../data/actions";
 
 const mapStateToProps = (state, { id }) => {
 
@@ -8,7 +9,7 @@ const mapStateToProps = (state, { id }) => {
 	const fields = article ? [
 	    { name: "title", label: "Title", value: article.title },
 	    { name: "article", label: "Article", value: article.article },
-	    { name: "tags", label: "Tags", value: article.tags },
+	    { name: "tags", label: "Tags", value: article.tags.join(" ") },
 
 	] : null;
 
@@ -20,10 +21,10 @@ const mapStateToProps = (state, { id }) => {
     };
 };
 
-const mapDispatchToProps = (dispatch, { article }) => {
+const mapDispatchToProps = (dispatch, { id }) => {
 	return {
-       onEdit: () => dispatch(editArticle(article)),
+       onSubmit: (data) => dispatch(editArticle(data, id)),
     };
 }
 
-export default connect(mapStateToProps)(Edit);
+export default connect(mapStateToProps, mapDispatchToProps)(Edit);
