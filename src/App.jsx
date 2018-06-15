@@ -7,10 +7,11 @@ import {
 
 import Header from "./components/Header";
 import FourOhFour from "./components/FourOhFour";
+import Add from "./containers/Articles/Add";
+import Edit from "./containers/Articles/Edit";
+import Articles from "./containers/Articles/Articles";
+import Article from "./containers/Articles/Article";
 
-import Articles from "./components/Articles/Articles";
-import Article from "./components/Articles/Article";
-import Add from "./components/Articles/Add";
 
 const App = ({ articles }) => (
     <React.Fragment>
@@ -21,14 +22,18 @@ const App = ({ articles }) => (
         <Switch>
             { /* the articles list */ }
             { /* use Object.values() to pass in an array of articles that we can map over */ }
-            <Route exact path="/" render={ () => <Articles articles={ Object.values(articles) } /> } />
+            <Route exact path="/" component={ Articles } />
 
             { /* show the add form - has to come before :id so "add" doesn't get treated as an id  */ }
             <Route exact path="/articles/add" component={ Add } />
 
-            { /* show an individual article */ }
+            <Route exact path="/articles/:id/edit" render={ ({ match }) => (
+                <Edit id={ +match.params.id } />        
+            )} />
+
+            { /* pass through the id to the container */ }
             <Route exact path="/articles/:id" render={ ({ match }) => (
-                <Article article={ articles[+match.params.id] } />
+                <Article id={ +match.params.id } />
             )} />
 
             { /* 404 page */}

@@ -6,15 +6,16 @@ import Form from "../Forms/Form";
 const fields = [
     { name: "title", label: "Title", value: "" },
     { name: "article", label: "Article", value: "" },
+    { name: "tags", label: "Tags", value: "" },
 ];
 
-// the add article component
-const Add = () => (
-    <React.Fragment>
+// accept the onSubmit prop we just added
+const Add = ({ onSubmit }) => (
+    <div>
         <h2>Add Article</h2>
-
-        <Form className="panel-body" fields={ fields } button="Add Article" />
-    </React.Fragment>
+        { /* pass through onSubmit to the Form */ }
+        <Form onSubmit={ onSubmit } className="panel-body" fields={ fields } button="Add Article" />
+    </div>
 );
 
 export default Add;
